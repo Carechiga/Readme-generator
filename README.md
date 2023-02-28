@@ -24,7 +24,7 @@ In order to run this program you will need to install inquirer, you can do so si
 
 The user will be prompted with a series of questions in the console, which should be answered as thouroughly as possibly. When all the questions have been answered the users input will be used to generate a readme with the given data and then written to file.
 
-Heres a link to a video of the app in action (this readme was generated during this video): https://drive.google.com/file/d/1R6RN3uFkHDx9hPTZbjxwnOzVWGUibFzG/view
+Heres a link to a video of the app in action (this readme was generated during this video): youtube.com/watch?v=TcSefrpTwJg
 
 ## Credits
 
