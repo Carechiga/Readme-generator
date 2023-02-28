@@ -9,7 +9,7 @@ function writeToFile(readmeContent) {
     err ? console.error(err) : console.log('Generating README!'))
 }
 //this takes the info the user passes through the console via inquirer and generates a README using the following template
-const generateREADME = ({ projectName, motivation, reason, problem, lesson, installation, usage, credits, license, github, email}, badge) => 
+const generateREADME = ({ projectName, motivation, reason, problem, lesson, installation, usage, credits, license, github, email, tests}, badge) => 
 `# ${projectName}  	${badge}
 
 ## Description
@@ -45,6 +45,8 @@ ${credits}
 This application is covered under the following license: ${license}
 
 ## Tests
+
+${tests}
 
 ## Questions
 If you have questions about this application you can reach me for more information here - 
@@ -123,9 +125,9 @@ const questions = [inquirer
       var badge = "";
       if(answers.license === "Apache License 2.0"){
         badge = "[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)"
-      }else if(answers.answerslicense === "GNUGeneral Public License 2.0 ") {
+      }else if(answers.license === "GNUGeneral Public License 2.0") {
         badge = "[![License: GPL v2](https://img.shields.io/badge/License-GPL_v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)"
-      }else if (answers.answerslicense === "MIT license"){
+      }else{
         badge = "[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)"
       }
       //this generates the readme with the content
