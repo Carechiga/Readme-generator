@@ -8,13 +8,11 @@ function writeToFile(readmeContent) {
     fs.writeFile('README.md', readmeContent, (err) =>
     err ? console.error(err) : console.log('Generating README!'))
 }
-
-const generateREADME = ({ projectName, motivation, reason, problem, lesson, installation, usage, credits, license }) => 
-`# ${projectName}
+//this takes the info the user passes through the console via inquirer and generates a README using the following template
+const generateREADME = ({ projectName, motivation, reason, problem, lesson, installation, usage, credits, license, github, email}, badge) => 
+`# ${projectName}  	${badge}
 
 ## Description
-
-Provide a short description explaining the what, why, and how of your project. Use the following questions as a guide:
 
 ${motivation}
 ${reason}
@@ -44,9 +42,16 @@ ${credits}
 
 ## License
 
-${license}
+This application is covered under the following license: ${license}
 
-## Tests`
+## Tests
+
+## Questions
+If you have questions about this application you can reach me for more information here - 
+
+Github: github.com/${github}
+
+Email: ${email}`
 
 // TODO: Create an array of questions for user input
 const questions = [inquirer
@@ -94,18 +99,38 @@ const questions = [inquirer
       {
         type: 'input',
         name: 'tests',
-        message: 'Is there anything that needs to be installed? How?',
+        message: 'Are there any tests you would like to include? Include below.',
       },
+      {
+        type: 'list',
+        name: 'license',
+        message: 'Which licesne would you like to use for your project?',
+        choices: ['Apache License 2.0', 'GNUGeneral Public License 2.0', 'MIT License'],
+      },
+      {
+        type: 'input',
+        name: 'github',
+        message: 'What is your Github user name?',
+      },
+      {
+        type: 'input',
+        name: 'email',
+        message: 'What is your email address?',
+      }
     ])
     .then((answers) => {
-      const readmeContent = generateREADME(answers);
+      //the license badges are a little more complex then just plugging in the value given from the user input so we have this functino below to create the correct license badge
+      var badge = "";
+      if(answers.license === "Apache License 2.0"){
+        badge = "[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)"
+      }else if(answers.answerslicense === "GNUGeneral Public License 2.0 ") {
+        badge = "[![License: GPL v2](https://img.shields.io/badge/License-GPL_v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)"
+      }else if (answers.answerslicense === "MIT license"){
+        badge = "[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)"
+      }
+      //this generates the readme with the content
+      const readmeContent = generateREADME(answers, badge);
+      //and then this actually writes the readme to file
       writeToFile(readmeContent);
     })]
  
-// // TODO: Create a function to initialize app
-// function init() {
-//     questions();
-// }
-
-// // Function call to initialize app
-// init();
